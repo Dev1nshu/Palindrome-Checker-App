@@ -1,41 +1,51 @@
 /**
- * MAIN CLASS - UseCase10PalindromeCheckerApp
- * Use Case 10: Normalized Palindrome Validation
- * =========================================================================
- * Description:
- * This class validates a palindrome after preprocessing the input string.
- * Normalization includes:
- * - Removing spaces and symbols
- * - Converting to lowercase
- * This ensures the palindrome check is logical rather than character-format dependent.
+ * SERVICE CLASS - PalindromeService
+ * Encapsulates the palindrome validation logic.
+ */
+class PalindromeService {
+    /**
+     * UC11: Checks if a string is a palindrome.
+     * Demonstrates Encapsulation by hiding the logic inside this method.
+     * * @param input The string to check
+     * @return true if palindrome, otherwise false
+     */
+    public boolean checkPalindrome(String input) {
+        if (input == null) return false;
+
+        // Using the two-pointer technique for internal logic
+        int start = 0;
+        int end = input.length() - 1;
+
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+}
+
+/**
+ * MAIN CLASS - UseCase11PalindromeCheckerApp
+ * Use Case 11: Object-Oriented Palindrome Service
  */
 public class dev {
     /**
-     * Application entry point for UC10.
+     * Application entry point for UC11.
      */
     public static void main(String[] args) {
-        // Example input with spaces and mixed casing
-        String input = "A man a plan a canal Panama";
+        // Create an instance of the service class (OOP approach)
+        PalindromeService service = new PalindromeService();
 
-        // Preprocessing: Remove all non-alphanumeric characters and convert to lowercase
-        // [^a-zA-Z0-9] is a Regular Expression for "anything that isn't a letter or number"
-        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        String input = "madam";
 
-        // Assume palindrome initially
-        boolean isPalindrome = true;
+        // Invoke the encapsulated method
+        boolean result = service.checkPalindrome(input);
 
-        // Compare characters from both ends using normalization logic
-        for (int i = 0; i < normalized.length() / 2; i++) {
-            // Compare symmetric characters
-            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
-                isPalindrome = false;
-                break; // Exit early if mismatch found
-            }
-        }
-
-        // Display the results
-        System.out.println("Original Input : " + input);
-        System.out.println("Normalized     : " + normalized);
-        System.out.println("Is Palindrome? : " + isPalindrome);
+        // Display the result
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + result);
     }
 }
