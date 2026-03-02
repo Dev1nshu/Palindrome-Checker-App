@@ -1,38 +1,42 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
- * MAIN CLASS - UseCase5PalindromeCheckerApp
- * Use Case 5: Stack Based Palindrome Checker
+ * MAIN CLASS - UseCase6PalindromeCheckerApp
+ * Use Case 6: Queue + Stack Fairness Check
  * * Description:
- * This class validates a palindrome using a Stack data structure
- * which follows the LIFO (Last In First Out) principle.
+ * This class demonstrates palindrome validation using two different
+ * data structures: Queue (FIFO) and Stack (LIFO).
  */
 public class dev {
     /**
-     * Application entry point for UC5.
+     * Application entry point for UC6.
      */
     public static void main(String[] args) {
-        // Declare and initialize the input string
-        String input = "noon";
+        // Define the input string to validate
+        String input = "civic";
 
-        // Create a Stack to store characters
+        // Create a Queue to store characters in FIFO order
+        Queue<Character> queue = new LinkedList<>();
+        // Create a Stack to store characters in LIFO order
         Stack<Character> stack = new Stack<>();
 
-        // Push each character of the string into the stack
-        // Stack naturally reverses the order of elements
+        // Insert each character into both structures
         for (char c : input.toCharArray()) {
-            stack.push(c);
+            queue.add(c);  // Enqueue
+            stack.push(c); // Push
         }
 
-        // Assume palindrome initially
+        // Flag to track palindrome status
         boolean isPalindrome = true;
 
-        // Iterate again through original string and compare with popped characters
-        // Pop Operation: Removes characters from the stack in reverse order
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
+        // Compare characters until the queue becomes empty
+        // Queue removes from the front, Stack removes from the back
+        while (!queue.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
                 isPalindrome = false;
-                break; // Exit early if mismatch found
+                break;
             }
         }
 
