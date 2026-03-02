@@ -1,28 +1,39 @@
-import java.util.Scanner;
-
+/**
+ * MAIN CLASS - UseCase4PalindromeCheckerApp
+ * Use Case 4: Character Array Based Validation
+ */
 public class dev {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // Declare and initialize the input string
+        String input = "radar";
 
-        System.out.print("Enter a string: ");
-        String original = scanner.nextLine();
+        // Convert the string into a character array
+        char[] chars = input.toCharArray();
 
-        // UC3 Key Concept: String Immutability
-        // Each time we add a character to 'reversed', a new String object is created.
-        String reversed = "";
+        // Initialize pointer at the beginning
+        int start = 0;
+        // Initialize pointer at the end
+        int end = chars.length - 1;
 
-        // Loop: Iterate from the last index to the first
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i); // String Concatenation (+)
+        // Assume palindrome initially
+        boolean isPalindrome = true;
+
+        // Continue comparison until pointers cross
+        while (start < end) {
+            // Compare characters at both ends
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break; // Exit loop early if mismatch found
+            }
+            start++; // Move front pointer forward
+            end--;   // Move back pointer backward
         }
 
-        // Use equals() to compare content, not memory references
-        if (original.equalsIgnoreCase(reversed)) {
-            System.out.println("Result: It is a palindrome.");
+        // Display the result
+        if (isPalindrome) {
+            System.out.println(input + " is a palindrome.");
         } else {
-            System.out.println("Result: It is not a palindrome.");
+            System.out.println(input + " is not a palindrome.");
         }
-
-        scanner.close();
     }
 }
