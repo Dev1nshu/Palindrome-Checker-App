@@ -1,27 +1,28 @@
-import java.util.Scanner; // Import the Scanner class
+import java.util.Scanner;
 
 public class dev {
     public static void main(String[] args) {
-        // Create a Scanner object to read input
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a string to check: ");
-        String str = scanner.nextLine(); // Reads the user's input
+        System.out.print("Enter a string: ");
+        String original = scanner.nextLine();
 
-        String reversedStr = "";
+        // UC3 Key Concept: String Immutability
+        // Each time we add a character to 'reversed', a new String object is created.
+        String reversed = "";
 
-        // Logic to reverse the string
-        for (int i = str.length() - 1; i >= 0; i--) {
-            reversedStr = reversedStr + str.charAt(i);
+        // Loop: Iterate from the last index to the first
+        for (int i = original.length() - 1; i >= 0; i--) {
+            reversed = reversed + original.charAt(i); // String Concatenation (+)
         }
 
-        // Check if palindrome
-        if (str.equalsIgnoreCase(reversedStr)) {
-            System.out.println("\"" + str + "\" is a palindrome.");
+        // Use equals() to compare content, not memory references
+        if (original.equalsIgnoreCase(reversed)) {
+            System.out.println("Result: It is a palindrome.");
         } else {
-            System.out.println("\"" + str + "\" is not a palindrome.");
+            System.out.println("Result: It is not a palindrome.");
         }
 
-        scanner.close(); // Good practice to close the scanner
+        scanner.close();
     }
 }
