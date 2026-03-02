@@ -1,42 +1,42 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
- * MAIN CLASS - UseCase6PalindromeCheckerApp
- * Use Case 6: Queue + Stack Fairness Check
+ * MAIN CLASS - UseCase7PalindromeCheckerApp
+ * Use Case 7: Deque Based Optimized Palindrome Checker
  * * Description:
- * This class demonstrates palindrome validation using two different
- * data structures: Queue (FIFO) and Stack (LIFO).
+ * This class validates a palindrome using a Deque (Double Ended Queue).
+ * It enables direct comparison of the first and last characters by
+ * removing elements from both ends simultaneously.
  */
-public class dev {
+public class dev
+{
     /**
-     * Application entry point for UC6.
+     * Application entry point for UC7.
      */
     public static void main(String[] args) {
         // Define the input string to validate
-        String input = "civic";
+        String input = "refer";
 
-        // Create a Queue to store characters in FIFO order
-        Queue<Character> queue = new LinkedList<>();
-        // Create a Stack to store characters in LIFO order
-        Stack<Character> stack = new Stack<>();
+        // Create a Deque to store characters
+        // ArrayDeque is an efficient implementation for front/back access
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Insert each character into both structures
+        // Add each character of the string into the deque
         for (char c : input.toCharArray()) {
-            queue.add(c);  // Enqueue
-            stack.push(c); // Push
+            deque.addLast(c);
         }
 
-        // Flag to track palindrome status
+        // Flag to track palindrome result
         boolean isPalindrome = true;
 
-        // Compare characters until the queue becomes empty
-        // Queue removes from the front, Stack removes from the back
-        while (!queue.isEmpty()) {
-            if (queue.remove() != stack.pop()) {
+        // Continue comparison while more than one element exists in the deque
+        // Optimized: We compare the front and back characters directly
+        while (deque.size() > 1) {
+            // removeFirst() gets the front, removeLast() gets the rear
+            if (deque.removeFirst() != deque.removeLast()) {
                 isPalindrome = false;
-                break;
+                break; // Exit early if mismatch is found
             }
         }
 
