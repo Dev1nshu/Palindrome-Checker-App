@@ -1,56 +1,26 @@
-import java.util.Stack;
-
 /**
- * INTERFACE - Defining the contract for algorithms
- */
-interface PalindromeStrategy {
-    boolean check(String input);
-}
-
-/**
- * STRATEGY - Implementation using a Stack (LIFO)
- */
-class StackStrategy implements PalindromeStrategy {
-    @Override
-    public boolean check(String input) {
-        Stack<Character> stack = new Stack<>();
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
-                return false;
-            }
-        }
-        return true;
-    }
-}
-
-/**
- * MAIN CLASS - Benchmarking the performance
+ * MAIN CLASS - UseCase1PalindromeCheckerApp
+ * Use Case 1: Application Entry & Welcome Message
+ * =========================================================================
+ * Description:
+ * This is the entry point for the Palindrome Checker Application.
+ * It displays the application details and version at startup.
  */
 public class dev {
+    /**
+     * Entry point of the Java application.
+     * The JVM looks for this specific signature to start execution.
+     */
     public static void main(String[] args) {
-        String input = "racecar";
+        // Application Startup Messages
+        System.out.println("============================================");
+        System.out.println("      Welcome to Palindrome Checker App     ");
+        System.out.println("============================================");
 
-        // 1. Initialize the strategy
-        PalindromeStrategy stackStrategy = new StackStrategy();
-
-        // 2. Capture execution start time in nanoseconds
-        long startTime = System.nanoTime();
-
-        // 3. Execute the algorithm
-        boolean result = stackStrategy.check(input);
-
-        // 4. Capture execution end time
-        long endTime = System.nanoTime();
-
-        // 5. Calculate total duration
-        long duration = (endTime - startTime);
-
-        // Display benchmarking results
-        System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + result);
-        System.out.println("Execution Time (ns) : " + duration);
+        // Display Application Details
+        System.out.println("Application Name: Palindrome Checker");
+        System.out.println("Version         : 1.0.0");
+        System.out.println("Status          : Initialized Successfully");
+        System.out.println("============================================");
     }
 }
