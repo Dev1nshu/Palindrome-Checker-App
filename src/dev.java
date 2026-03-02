@@ -1,50 +1,57 @@
 /**
- * SERVICE CLASS - PalindromeService
- * Encapsulates the palindrome validation logic.
+ * INTERFACE - PalindromeStrategy
+ * =========================================================================
+ * This interface defines a contract for all palindrome checking algorithms.
+ * Any new algorithm must implement this interface and provide its own
+ * validation logic.
  */
-class PalindromeService {
-    /**
-     * UC11: Checks if a string is a palindrome.
-     * Demonstrates Encapsulation by hiding the logic inside this method.
-     * * @param input The string to check
-     * @return true if palindrome, otherwise false
-     */
-    public boolean checkPalindrome(String input) {
-        if (input == null) return false;
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
-        // Using the two-pointer technique for internal logic
-        int start = 0;
-        int end = input.length() - 1;
+/**
+ * STRATEGY CLASS - StackStrategy
+ * =========================================================================
+ * Implements palindrome validation using a Stack (LIFO behavior).
+ */
+class StackStrategy implements PalindromeStrategy {
+    @Override
+    public boolean check(String input) {
+        java.util.Stack<Character> stack = new java.util.Stack<>();
 
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
+        // Push each character of the input string onto the stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        // Compare characters by popping from the stack
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
 }
 
 /**
- * MAIN CLASS - UseCase11PalindromeCheckerApp
- * Use Case 11: Object-Oriented Palindrome Service
+ * MAIN CLASS - UseCase12PalindromeCheckerApp
+ * =========================================================================
+ * Description:
+ * This class demonstrates how different algorithms can be selected
+ * dynamically at runtime using the Strategy Design Pattern.
  */
 public class dev {
-    /**
-     * Application entry point for UC11.
-     */
     public static void main(String[] args) {
-        // Create an instance of the service class (OOP approach)
-        PalindromeService service = new PalindromeService();
+        String input = "racecar";
 
-        String input = "madam";
+        // Inject the strategy at runtime
+        PalindromeStrategy strategy = new StackStrategy();
 
-        // Invoke the encapsulated method
-        boolean result = service.checkPalindrome(input);
+        // Execute the selected algorithm
+        boolean result = strategy.check(input);
 
-        // Display the result
+        // Display results
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
     }
