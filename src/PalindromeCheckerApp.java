@@ -7,23 +7,28 @@ public class PalindromeCheckerApp {
 
         String input = "level";
 
-        // Inject strategy
         PalindromeStrategy strategy = new StackStrategy();
+
+        long startTime = System.nanoTime();
 
         boolean result = strategy.check(input);
 
+        long endTime = System.nanoTime();
+
+        long executionTime = endTime - startTime;
+
         System.out.println("Input: " + input);
         System.out.println("Is Palindrome?: " + result);
+        System.out.println("Execution Time: " + executionTime + " ns");
     }
 }
 
 // STRATEGY INTERFACE
 interface PalindromeStrategy {
-
     boolean check(String input);
 }
 
-// CONCRETE STRATEGY (Stack Based)
+// STACK STRATEGY
 class StackStrategy implements PalindromeStrategy {
 
     public boolean check(String input) {
